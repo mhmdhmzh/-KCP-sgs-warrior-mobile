@@ -1,17 +1,18 @@
-# sgs_warrior
+# SGS Warrior
 
-A new Flutter project.
+Flutter App Project
 
-## Getting Started
+## Tech Used
 
-This project is a starting point for a Flutter application.
+flutter doctor shown below:
 
-A few resources to get you started if this is your first Flutter project:
+![flutter_doctor](f-doctor.jpeg)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+and FVM (Flutter version Manager) version: 2.3.1
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Architecture
+
+- Test Driven Development (TDD) and Clean Architecture
+- Modular / package per-feature
+
 # -KCP--sgs-warrior-mobile
