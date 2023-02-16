@@ -2,8 +2,8 @@
 import 'package:core/core.dart';
 
 import 'package:flutter/material.dart';
-import 'package:intro/features/on_boarding/presentation/pages/on_boarding_screen.dart';
-import 'package:intro/features/splash/presentation/pages/splash_screen.dart';
+import 'package:intro/features/on_boarding/presentation/screens/on_boarding_screen.dart';
+import 'package:intro/features/splash/presentation/screens/splash_screen.dart';
 
 import 'not_found_page.dart';
 

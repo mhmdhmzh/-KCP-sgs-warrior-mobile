@@ -10,7 +10,7 @@ def main():
 
         
 def execute(package, name):
-    main_dir = ['pacakges/' + package]
+    main_dir = [package]
     sub_dir = ['data', 'domain', 'presentation']
     sub_data_dir = ['datasources','models', 'repositories']
     sub_domain_dir = ['entities','usecases', 'repositories']

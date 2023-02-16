@@ -28,5 +28,6 @@ export 'package:carousel_slider/carousel_controller.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:introduction_screen/introduction_screen.dart';
+export 'package:onboarding/onboarding.dart';
 
 final sl = GetIt.instance;
