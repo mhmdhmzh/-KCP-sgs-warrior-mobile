@@ -12,6 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  core:
+    path: ../core
+  navigation: 
+    path: ../navigation
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,4 +1,5 @@
 // import 'package:banner/presentation/pages/banner_page.dart';
+import 'package:auth/features/login/presentation/screens/login_screen.dart';
 import 'package:core/core.dart';
 
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'not_found_page.dart';
 class AppRouter {
   static const root = '/';
   static const onboarding = 'onboarding';
+  static const login = 'login';
 
   static MaterialPage _splashScreenRouteBuilder(
           BuildContext context, GoRouterState state) =>
@@ -25,20 +27,12 @@ class AppRouter {
         child: OnBoardingScreen(),
       );
 
-  // static MaterialPage _secondPageRouteBuilder(
-  //         BuildContext context, GoRouterState state) =>
-  //     MaterialPage(
-  //       key: state.pageKey,
-  //       child: SecondPage(),
-  //     );
-
-  // static MaterialPage _loginPageRouteBuilder(
-  //         BuildContext context, GoRouterState state) =>
-  //     MaterialPage(
-  //       key: state.pageKey,
-  //       child: LoginPage(),
-  //     );
-  //
+  static MaterialPage _loginScreenRouteBuilder(
+          BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        key: state.pageKey,
+        child: LoginScreen(),
+      );
 
   static MaterialPage _errorPage(BuildContext context, GoRouterState state) =>
       MaterialPage(
@@ -54,10 +48,7 @@ class AppRouter {
         pageBuilder: _splashScreenRouteBuilder,
         routes: [
           GoRoute(path: onboarding, pageBuilder: _onBoardingScreenRouteBuilder),
-          // GoRoute(path: offer, pageBuilder: _offerPageRouteBuilder),
-          // GoRoute(path: offerCard, pageBuilder: _offerCardPageRouteBuilder),
-          // GoRoute(path: whatson, pageBuilder: _whatsonPageRouteBuilder),
-          // // GoRoute(path: banner, pageBuilder: _bannerPageRouteBuilder),
+          GoRoute(path: login, pageBuilder: _loginScreenRouteBuilder),
         ],
       ),
     ],

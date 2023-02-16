@@ -23,7 +23,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Modularization',
+      title: 'SGS Warrior',
       debugShowCheckedModeBanner: FlavorConfig.instance.env == Environment.DEV,
       theme: CustomTheme.lightTheme,
       darkTheme: CustomTheme.darkTheme,

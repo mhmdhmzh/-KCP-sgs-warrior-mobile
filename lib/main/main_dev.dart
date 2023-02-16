@@ -9,12 +9,7 @@ Future<void> main() async {
 
   FlavorConfig(
     env: Environment.DEV,
-    loyaltyBaseUrl:
-        'https://qa-loyaltyservice.mysuperindo.co.id${constants.API_VERSION}',
-    accountBaseUrl:
-        'https://qa-accountservice.mysuperindo.co.id${constants.API_VERSION}',
-    analyticBaseUrl:
-        'https://qa-analyticservice.mysuperindo.co.id${constants.API_VERSION}',
+    baseUrl: '',
   );
 
   await injection.init();

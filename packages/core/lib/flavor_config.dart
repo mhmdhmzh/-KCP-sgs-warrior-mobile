@@ -5,15 +5,11 @@ enum Environment {
 
 class FlavorConfig {
   final Environment env;
-  final String loyaltyBaseUrl;
-  final String accountBaseUrl;
-  final String analyticBaseUrl;
+  final String baseUrl;
 
   FlavorConfig._internal(
     this.env,
-    this.loyaltyBaseUrl,
-    this.accountBaseUrl,
-    this.analyticBaseUrl,
+    this.baseUrl,
   );
 
   static FlavorConfig? _instance;
@@ -21,21 +17,19 @@ class FlavorConfig {
   static FlavorConfig get instance {
     _instance ??= FlavorConfig(
       env: Environment.DEV,
-      loyaltyBaseUrl: '',
-      accountBaseUrl: '',
-      analyticBaseUrl: '',
+      baseUrl: '',
     );
     return _instance!;
   }
 
   factory FlavorConfig({
     required Environment env,
-    required String loyaltyBaseUrl,
-    required String accountBaseUrl,
-    required String analyticBaseUrl,
+    required String baseUrl,
   }) {
     _instance = FlavorConfig._internal(
-        env, loyaltyBaseUrl, accountBaseUrl, analyticBaseUrl);
+      env,
+      baseUrl,
+    );
     return _instance!;
   }
 }

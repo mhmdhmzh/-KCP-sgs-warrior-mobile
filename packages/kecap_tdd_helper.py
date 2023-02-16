@@ -14,7 +14,7 @@ def execute(package, name):
     sub_dir = ['data', 'domain', 'presentation']
     sub_data_dir = ['datasources','models', 'repositories']
     sub_domain_dir = ['entities','usecases', 'repositories']
-    sub_pres_dir = ['pages']
+    sub_pres_dir = ['screens']
     sub_ds_dir = ['remote','local']
 
     for dir1 in main_dir:
