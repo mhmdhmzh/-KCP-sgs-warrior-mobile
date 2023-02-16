@@ -15,4 +15,4 @@ and FVM (Flutter version Manager) version: 2.3.1
 - Test Driven Development (TDD) and Clean Architecture
 - Modular / package per-feature
 
-# -KCP--sgs-warrior-mobile
+# -KCP-sgs-warrior-mobile
