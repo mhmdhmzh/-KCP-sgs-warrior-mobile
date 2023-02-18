@@ -9,7 +9,7 @@ Future<void> main() async {
 
   FlavorConfig(
     env: Environment.DEV,
-    baseUrl: '',
+    baseUrl: 'https://api.sgs.ns2solution.com/',
   );
 
   await injection.init();
