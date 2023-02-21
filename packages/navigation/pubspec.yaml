@@ -11,12 +11,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  auth:
+    path: ../auth
   core:
     path: ../core
   intro:
     path: ../intro
-  auth:
-    path: ../auth
+  product:
+    path: ../product
 
 dev_dependencies:
   flutter_test:

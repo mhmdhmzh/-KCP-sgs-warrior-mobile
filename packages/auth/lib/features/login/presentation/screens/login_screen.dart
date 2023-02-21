@@ -1,7 +1,9 @@
+import 'package:auth/features/reusable_widgets.dart';
 import 'package:core/common/utils/size_config.dart';
 import 'package:core/common/utils/spaces.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:navigation/route/routes.dart';
@@ -18,10 +20,6 @@ class LoginScreen extends StatelessWidget {
     SizeConfigs().init(context);
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
       body: BlocProvider(
         create: (context) => sl<LoginBloc>(),
         child: BlocListener<LoginBloc, LoginState>(
@@ -30,10 +28,10 @@ class LoginScreen extends StatelessWidget {
               EasyLoading.show(status: 'Loading..');
             } else if (state is Success) {
               EasyLoading.dismiss();
-              context.replace('/${AppRouter}');
+              context.push('/${AppRouter.otp}', extra: email.value);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${state.resp.data.name} is logged'),
+                  content: Text('${state.resp.data.name} is logged in'),
                 ),
               );
             } else if (state is Error) {
@@ -47,11 +45,10 @@ class LoginScreen extends StatelessWidget {
           },
           child: Stack(
             children: [
-              CachedNetworkImage(
-                imageUrl:
-                    'https://i.pinimg.com/736x/f1/97/d3/f197d3d9ae6e1178eaa6eaf23009651e.jpg',
-                height: size.height,
-                width: size.width,
+              Image.asset(
+                'assets/background/bg_image.jpeg',
+                height: double.infinity,
+                width: double.infinity,
                 fit: BoxFit.cover,
               ),
               Container(
@@ -95,19 +92,10 @@ class LoginScreen extends StatelessWidget {
                             const HeightGap(height: 30),
                             Form(
                               key: _formKey,
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  label: Text('Email'),
-                                  hintText: 'Masukkan email anda',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20),
-                                    ),
-                                  ),
-                                  prefixIcon: Icon(
-                                    Icons.email,
-                                  ),
-                                ),
+                              child: CustomTextInput(
+                                label: 'Email',
+                                hinText: 'Masukkan email anda',
+                                prefixIcon: const Icon(Icons.email),
                                 keyboardType: TextInputType.emailAddress,
                                 onChanged: (value) {
                                   email.value = value;
@@ -177,17 +165,8 @@ class LoginScreen extends StatelessWidget {
                                 width: double.infinity,
                                 height: size.height / 17,
                                 child: ElevatedButton(
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        // _formKey.currentState!.save();
-                                        BlocProvider.of<LoginBloc>(context).add(
-                                          Login(
-                                            email: email.value,
-                                            media: '1',
-                                          ),
-                                        );
-                                      }
-                                    },
+                                    onPressed: () =>
+                                        context.push('/${AppRouter.register}'),
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(

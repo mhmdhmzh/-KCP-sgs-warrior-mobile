@@ -26,7 +26,7 @@ class LoginRemoteDatasourceImpl extends LoginRemoteDatasource {
     if (response.statusCode != null && response.statusCode == 200) {
       final result = BaseResponse<LoginRespModel>.fromJson(
         response.data,
-        (resp) => LoginRespModel.fromJson(resp),
+        (resp) => LoginRespModel.fromJson(response.data),
       );
       return result;
     } else {

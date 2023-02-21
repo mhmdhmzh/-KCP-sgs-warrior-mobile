@@ -30,5 +30,6 @@ export 'package:shimmer/shimmer.dart';
 export 'package:introduction_screen/introduction_screen.dart';
 export 'package:onboarding/onboarding.dart';
 export 'package:flutter_easyloading/flutter_easyloading.dart';
+export 'package:intl/intl.dart';
 
 final sl = GetIt.instance;

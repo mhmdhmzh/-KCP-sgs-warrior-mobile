@@ -23,71 +23,84 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: _index,
-        builder: (context, index, widget) => Onboarding(
-          pages: onboardingPagesList,
-          onPageChange: (int pageIndex) {
-            _index.value = pageIndex;
-          },
-          startPageIndex: _index.value,
-          footerBuilder: (context, dragDistance, pagesLength, setIndex) {
-            return ColoredBox(
-              color: Colors.transparent,
-              child: Padding(
-                padding: const EdgeInsets.all(45.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomIndicator(
-                      shouldPaint: true,
-                      netDragPercent: dragDistance,
-                      pagesLength: pagesLength,
-                      indicator: Indicator(
-                        activeIndicator: const ActiveIndicator(
-                          color: Colors.grey,
-                        ),
-                        closedIndicator: const ClosedIndicator(
-                          borderWidth: 10,
-                          color: Colors.blue,
-                        ),
-                        indicatorDesign: IndicatorDesign.polygon(
-                          polygonDesign: PolygonDesign(
-                            polygon: DesignType.polygon_circle,
+      body: Stack(children: [
+        Image.asset(
+          'assets/background/bg_image.jpeg',
+          height: double.infinity,
+          width: double.infinity,
+          fit: BoxFit.cover,
+        ),
+        Container(
+          height: size.height,
+          color: Colors.white70,
+        ),
+        ValueListenableBuilder(
+          valueListenable: _index,
+          builder: (context, index, widget) => Onboarding(
+            pages: onboardingPagesList,
+            onPageChange: (int pageIndex) {
+              _index.value = pageIndex;
+            },
+            startPageIndex: _index.value,
+            footerBuilder: (context, dragDistance, pagesLength, setIndex) {
+              return ColoredBox(
+                color: Colors.transparent,
+                child: Padding(
+                  padding: const EdgeInsets.all(45.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomIndicator(
+                        shouldPaint: true,
+                        netDragPercent: dragDistance,
+                        pagesLength: pagesLength,
+                        indicator: Indicator(
+                          activeIndicator: const ActiveIndicator(
+                            color: Colors.grey,
+                          ),
+                          closedIndicator: const ClosedIndicator(
+                            borderWidth: 10,
+                            color: Colors.blue,
+                          ),
+                          indicatorDesign: IndicatorDesign.polygon(
+                            polygonDesign: PolygonDesign(
+                              polygon: DesignType.polygon_circle,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    _index.value == pagesLength - 1
-                        ? InkWell(
-                            onTap: () => context.push('/${AppRouter.login}'),
-                            child: const Text(
-                              'SELESAI',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                      _index.value == pagesLength - 1
+                          ? InkWell(
+                              onTap: () => context.push('/${AppRouter.login}'),
+                              child: const Text(
+                                'SELESAI',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                _index.value = pagesLength - 1;
+                                setIndex(pagesLength - 1);
+                              },
+                              child: const Text(
+                                'LEWATI',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          )
-                        : InkWell(
-                            onTap: () {
-                              _index.value = pagesLength - 1;
-                              setIndex(pagesLength - 1);
-                            },
-                            child: const Text(
-                              'LEWATI',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
-      ),
+      ]),
     );
   }
 
