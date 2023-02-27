@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:navigation/route/routes.dart';
 import 'package:pinput/pinput.dart';
 
 class PinScreen extends StatelessWidget {
@@ -93,6 +94,7 @@ class PinScreen extends StatelessWidget {
                         // },
                         hapticFeedbackType: HapticFeedbackType.lightImpact,
                         onCompleted: (pin) {
+                          context.replace('/${AppRouter.home}');
                           debugPrint('onCompleted: $pin');
                         },
                         onChanged: (value) {

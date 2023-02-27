@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auth/features/reusable_widgets.dart';
 import 'package:core/common/utils/size_config.dart';
 import 'package:core/common/utils/spaces.dart';
 import 'package:core/core.dart';

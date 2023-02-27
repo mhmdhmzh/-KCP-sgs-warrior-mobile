@@ -24,12 +24,17 @@ export 'package:device_info_plus/device_info_plus.dart';
 export 'package:platform_device_id/platform_device_id.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:inview_notifier_list/inview_notifier_list.dart';
-export 'package:carousel_slider/carousel_controller.dart';
+export 'package:carousel_slider/carousel_slider.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:introduction_screen/introduction_screen.dart';
 export 'package:onboarding/onboarding.dart';
 export 'package:flutter_easyloading/flutter_easyloading.dart';
 export 'package:intl/intl.dart';
+
+// common & utils
+export 'common/utils/size_config.dart';
+export 'common/utils/spaces.dart';
+export 'common/utils/input_widget.dart';
 
 final sl = GetIt.instance;
