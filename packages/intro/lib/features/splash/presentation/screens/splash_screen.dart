@@ -22,11 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-          child: Center(
-        child: Text('SGS WARRIOR'),
-      )),
+    return Scaffold(
+      body: Image.asset(
+        'assets/background/splash.jpeg',
+        height: double.infinity,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

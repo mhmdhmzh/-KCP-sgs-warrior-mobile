@@ -71,16 +71,17 @@ class CustomDropDownInput extends StatelessWidget {
     required this.onChanged,
     required this.validator,
     required this.items,
+    this.dropdownValue,
     this.keyboardType,
     this.prefixIcon,
     this.prefixText,
     Key? key,
   }) : super(key: key);
 
-  final String? label, hinText, prefixText;
+  final String? label, hinText, prefixText, dropdownValue;
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
-  final Function onChanged;
+  final Function(String?)? onChanged;
   FormFieldValidator<String>? validator;
   List<DropdownMenuItem<String>>? items;
 
@@ -96,6 +97,7 @@ class CustomDropDownInput extends StatelessWidget {
           color: Colors.white,
         ),
         child: DropdownButtonFormField<String>(
+          value: dropdownValue,
           decoration: InputDecoration(
             prefixText: prefixText,
             label: Text(label!),
@@ -109,7 +111,7 @@ class CustomDropDownInput extends StatelessWidget {
           ),
           dropdownColor: Colors.white,
           items: items,
-          onChanged: (value) => onChanged(),
+          onChanged: onChanged,
           isExpanded: true,
           iconDisabledColor: Colors.black,
           iconEnabledColor: Colors.black,

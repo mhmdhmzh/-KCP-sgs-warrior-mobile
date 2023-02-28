@@ -45,14 +45,10 @@ class LoginScreen extends StatelessWidget {
           child: Stack(
             children: [
               Image.asset(
-                'assets/background/bg_image.jpeg',
+                'assets/background/bg_image.jpg',
                 height: double.infinity,
                 width: double.infinity,
                 fit: BoxFit.cover,
-              ),
-              Container(
-                height: size.height,
-                color: Colors.white70,
               ),
               SafeArea(
                 child: Container(

@@ -27,14 +27,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       body: Stack(children: [
         Image.asset(
-          'assets/background/bg_image.jpeg',
+          'assets/background/bg_image.jpg',
           height: double.infinity,
           width: double.infinity,
           fit: BoxFit.cover,
-        ),
-        Container(
-          height: size.height,
-          color: Colors.white70,
         ),
         ValueListenableBuilder(
           valueListenable: _index,
@@ -46,7 +42,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             startPageIndex: _index.value,
             footerBuilder: (context, dragDistance, pagesLength, setIndex) {
               return ColoredBox(
-                color: Colors.transparent,
+                color: Colors.white70,
                 child: Padding(
                   padding: const EdgeInsets.all(45.0),
                   child: Row(
