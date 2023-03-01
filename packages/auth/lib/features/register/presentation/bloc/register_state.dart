@@ -21,3 +21,20 @@ class RegionError extends RegisterState {
 }
 
 class RegionEmpty extends RegisterState {}
+
+// province
+class RegisterLoading extends RegisterState {}
+
+class RegisterSuccess extends RegisterState {
+  final RegisterRespEntity registerRespEntity;
+
+  RegisterSuccess({required this.registerRespEntity});
+}
+
+class RegisterError extends RegisterState {
+  final String message;
+
+  RegisterError({required this.message});
+}
+
+class RegisterEmpty extends RegisterState {}

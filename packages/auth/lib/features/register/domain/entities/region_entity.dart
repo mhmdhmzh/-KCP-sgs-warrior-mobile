@@ -2,10 +2,15 @@ import 'package:core/core.dart';
 import 'dart:convert';
 
 class RegionEntity extends Equatable {
-  RegionEntity({required this.province, required this.place});
+  RegionEntity({
+    required this.province,
+    required this.place,
+    required this.subdistrict,
+  });
 
   final ProvinceEntity province;
   final PlaceEntity place;
+  final SubdistrictEntity subdistrict;
 
   @override
   List<Object?> get props => [province, place];
@@ -13,15 +18,15 @@ class RegionEntity extends Equatable {
 
 class ProvinceEntity extends Equatable {
   ProvinceEntity({
-    required this.message,
-    required this.data,
+    required this.provinceMessage,
+    required this.provinceData,
   });
 
-  final String message;
-  final List<ProvinceDataEntity> data;
+  final String provinceMessage;
+  final List<ProvinceDataEntity> provinceData;
 
   @override
-  List<Object?> get props => [message, data];
+  List<Object?> get props => [provinceMessage, provinceData];
 }
 
 class ProvinceDataEntity extends Equatable {
@@ -39,13 +44,14 @@ class ProvinceDataEntity extends Equatable {
 
 class PlaceEntity extends Equatable {
   PlaceEntity({
-    required this.data,
+    required this.placeMessage,
+    required this.placeData,
   });
-
-  final List<PlaceDataEntity> data;
+  final String placeMessage;
+  final List<PlaceDataEntity> placeData;
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [placeMessage, placeData];
 }
 
 class PlaceDataEntity extends Equatable {
@@ -75,4 +81,40 @@ class PlaceDataEntity extends Equatable {
 
   @override
   List<Object?> get props => [cityId, provinceId, province];
+}
+
+class SubdistrictEntity extends Equatable {
+  SubdistrictEntity({
+    required this.subdistrictMessage,
+    required this.subdistrictData,
+  });
+
+  final String subdistrictMessage;
+  final List<SubdistrictDataEntity> subdistrictData;
+
+  @override
+  List<Object?> get props => [subdistrictMessage, subdistrictData];
+}
+
+class SubdistrictDataEntity extends Equatable {
+  SubdistrictDataEntity({
+    required this.subdistrictId,
+    required this.provinceId,
+    required this.province,
+    required this.cityId,
+    required this.city,
+    required this.type,
+    required this.subdistrictName,
+  });
+
+  final int subdistrictId;
+  final int provinceId;
+  final String province;
+  final int cityId;
+  final String city;
+  final String type;
+  final String subdistrictName;
+
+  @override
+  List<Object?> get props => [city, province];
 }

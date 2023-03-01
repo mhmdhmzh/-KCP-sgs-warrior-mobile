@@ -2,47 +2,37 @@ import 'dart:convert';
 
 import 'package:auth/features/register/domain/entities/region_entity.dart';
 
-// To parse this JSON data, do
-//
-//     final ProvinceModel = ProvinceModelFromJson(jsonString);
-
-// To parse this JSON data, do
-//
-//     final ProvinceModel = ProvinceModelFromJson(jsonString);
-
 import 'dart:convert';
 
 class RegionModel extends RegionEntity {
-  RegionModel({
-    required super.province,
-    required super.place,
-  });
+  RegionModel(
+      {required super.province,
+      required super.place,
+      required super.subdistrict});
 
-  factory RegionModel.create(
-          {required ProvinceModel provinceModel,
-          required PlaceModel placeModel}) =>
+  factory RegionModel.fromJson({
+    required Map<String, dynamic> jsonProvince,
+    required Map<String, dynamic> jsonPlace,
+    required Map<String, dynamic> jsonSubdistrict,
+  }) =>
       RegionModel(
-        province: provinceModel,
-        place: placeModel,
-      );
+          province: ProvinceModel.fromJson(jsonProvince),
+          place: PlaceModel.fromJson(jsonPlace),
+          subdistrict: SubdistrictModel.fromJson(jsonSubdistrict));
 }
-
-// To parse this JSON data, do
-//
-//     final ProvinceModel = ProvinceModelFromJson(jsonString);
 
 ProvinceModel provinceModelFromJson(String str) =>
     ProvinceModel.fromJson(json.decode(str));
 
 class ProvinceModel extends ProvinceEntity {
   ProvinceModel({
-    required super.message,
-    required super.data,
+    required super.provinceMessage,
+    required super.provinceData,
   });
 
   factory ProvinceModel.fromJson(Map<String, dynamic> json) => ProvinceModel(
-        message: json["message"],
-        data: List<ProvinceDataModel>.from(
+        provinceMessage: json["message"],
+        provinceData: List<ProvinceDataModel>.from(
             json["data"].map((x) => ProvinceDataModel.fromJson(x))),
       );
 }
@@ -65,11 +55,13 @@ PlaceModel placeModelFromJson(String str) =>
 
 class PlaceModel extends PlaceEntity {
   PlaceModel({
-    required super.data,
+    required super.placeMessage,
+    required super.placeData,
   });
 
   factory PlaceModel.fromJson(Map<String, dynamic> json) => PlaceModel(
-        data: List<PlaceDataModel>.from(
+        placeMessage: json["message"],
+        placeData: List<PlaceDataModel>.from(
             json["data"].map((x) => PlaceDataModel.fromJson(x))),
       );
 }
@@ -101,5 +93,45 @@ class PlaceDataModel extends PlaceDataEntity {
         deletedAt: json["deleted_at"] == null
             ? null
             : DateTime.parse(json["deleted_at"]),
+      );
+}
+
+SubdistrictModel subdistrictModelFromJson(String str) =>
+    SubdistrictModel.fromJson(json.decode(str));
+
+class SubdistrictModel extends SubdistrictEntity {
+  SubdistrictModel({
+    required super.subdistrictMessage,
+    required super.subdistrictData,
+  });
+
+  factory SubdistrictModel.fromJson(Map<String, dynamic> json) =>
+      SubdistrictModel(
+        subdistrictMessage: json["message"],
+        subdistrictData: List<SubdistrictDataModel>.from(
+            json["data"].map((x) => SubdistrictDataModel.fromJson(x))),
+      );
+}
+
+class SubdistrictDataModel extends SubdistrictDataEntity {
+  SubdistrictDataModel({
+    required super.subdistrictId,
+    required super.provinceId,
+    required super.province,
+    required super.cityId,
+    required super.city,
+    required super.type,
+    required super.subdistrictName,
+  });
+
+  factory SubdistrictDataModel.fromJson(Map<String, dynamic> json) =>
+      SubdistrictDataModel(
+        subdistrictId: json["subdistrict_id"],
+        provinceId: json["province_id"],
+        province: json["province"],
+        cityId: json["city_id"],
+        city: json["city"],
+        type: json["type"],
+        subdistrictName: json["subdistrict_name"],
       );
 }

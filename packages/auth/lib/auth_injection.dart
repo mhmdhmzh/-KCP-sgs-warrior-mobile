@@ -14,10 +14,14 @@ import 'features/register/presentation/bloc/register_bloc.dart';
 Future<void> init() async {
   // bloc
   sl.registerFactory(() => LoginBloc(loginUsecase: sl()));
-  sl.registerFactory(() => RegisterBloc(provinceUsecase: sl()));
+  sl.registerFactory(() => RegisterBloc(
+        regionUsecase: sl(),
+        registerUsecase: sl(),
+      ));
   // usecase
   sl.registerLazySingleton(() => LoginUsecase(repository: sl()));
-  sl.registerLazySingleton(() => ProvinceUsecase(repository: sl()));
+  sl.registerLazySingleton(() => RegionUsecase(repository: sl()));
+  sl.registerLazySingleton(() => RegisterUsecase(repository: sl()));
   // repository
   sl.registerLazySingleton<LoginRepository>(
       () => LoginRepositoryImpl(datasource: sl()));
