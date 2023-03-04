@@ -10,19 +10,21 @@ class RegisterReqEntity extends Equatable {
     required this.sex,
     required this.dob,
     required this.address,
+    required this.provinceId,
     required this.subdistrictId,
     required this.placeId,
   });
-  final String avatar64;
-  final String idCard64;
-  final String name;
-  final String email;
-  final String phone;
-  final String sex;
-  final String dob;
-  final String address;
-  final String subdistrictId;
-  final String placeId;
+  String avatar64;
+  String idCard64;
+  String name;
+  String email;
+  String phone;
+  String sex;
+  String dob;
+  String address;
+  String provinceId;
+  String placeId;
+  String subdistrictId;
 
   @override
   List<Object?> get props => [avatar64, idCard64];

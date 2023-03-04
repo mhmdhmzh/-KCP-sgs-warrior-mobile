@@ -1,3 +1,4 @@
+import 'package:auth/features/otp/presentation/screens/otp_screen.dart';
 import 'package:core/common/utils/size_config.dart';
 import 'package:core/common/utils/spaces.dart';
 import 'package:core/core.dart';
@@ -27,7 +28,8 @@ class LoginScreen extends StatelessWidget {
               EasyLoading.show(status: 'Loading..');
             } else if (state is Success) {
               EasyLoading.dismiss();
-              context.push('/${AppRouter.otp}', extra: email.value);
+              context.goNamed(AppRouter.loginOtp,
+                  queryParams: {'email': email.value, 'otp_type': 'login'});
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('${state.resp.data.name} is logged in'),
@@ -161,7 +163,7 @@ class LoginScreen extends StatelessWidget {
                                 height: size.height / 17,
                                 child: ElevatedButton(
                                     onPressed: () =>
-                                        context.push('/${AppRouter.register}'),
+                                        context.goNamed(AppRouter.register),
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(

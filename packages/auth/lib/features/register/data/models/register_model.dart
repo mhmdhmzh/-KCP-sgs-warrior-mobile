@@ -12,6 +12,7 @@ class RegisterReqModel extends RegisterReqEntity {
     required super.sex,
     required super.dob,
     required super.address,
+    required super.provinceId,
     required super.subdistrictId,
     required super.placeId,
   });
@@ -26,7 +27,8 @@ class RegisterReqModel extends RegisterReqEntity {
         sex: json['sex'],
         dob: json['dob'],
         address: json['address'],
-        subdistrictId: json['provinceId'],
+        provinceId: json['provinceId'],
+        subdistrictId: json['subdistrictId'],
         placeId: json['placeId'],
       );
 }

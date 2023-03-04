@@ -28,7 +28,7 @@ class RegisterRepositoryImpl extends RegisterRepository {
       {required RegisterReqEntity req}) async {
     try {
       final response = await datasource.doRegister(req: req);
-      return Right(response.data!);
+      return Right(response);
     } on DioError catch (e) {
       final responseError = CustomException.fromDioError(e);
       return Left(RequestFailure(message: responseError.message));

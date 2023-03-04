@@ -14,7 +14,7 @@ class Error extends OtpState {
 }
 
 class Success extends OtpState {
-  // final OtpRespEntity resp;
+  final UserEntity resp;
 
-  // Success({required this.resp});
+  Success({required this.resp});
 }

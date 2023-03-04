@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:auth/features/otp/presentation/screens/otp_screen.dart';
 import 'package:auth/features/register/domain/entities/region_entity.dart';
 import 'package:auth/features/register/domain/entities/register_entity.dart';
 import 'package:core/common/utils/size_config.dart';
@@ -136,7 +137,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
             EasyLoading.show();
           } else if (state is RegisterSuccess) {
             EasyLoading.dismiss();
-            context.goNamed(AppRouter.otp);
+            context.goNamed(AppRouter.registerOtp, queryParams: {
+              'email': email.value,
+              'otp_type': 'register',
+            });
           } else if (state is RegisterError) {
             EasyLoading.dismiss();
             ScaffoldMessenger.of(context).showSnackBar(
@@ -440,61 +444,70 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                                 HeightGap(height: getHeight(25)),
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: size.height / 17,
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        if (avatarBase64 == '' &&
-                                            idCardBase64 == '' &&
-                                            provinsi.value == '' &&
-                                            kota.value == '' &&
-                                            kecamatan.value == '') {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content:
-                                                  Text('Tolong lengkapi data'),
+                                ValueListenableBuilder(
+                                    valueListenable: provinsi,
+                                    builder: (context, v, w) {
+                                      return SizedBox(
+                                        width: double.infinity,
+                                        height: size.height / 17,
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              // if (avatarBase64 == '' &&
+                                              //     idCardBase64 == '' &&
+                                              //     provinsi.value == '' &&
+                                              //     kota.value == '' &&
+                                              //     kecamatan.value == '') {
+                                              //   ScaffoldMessenger.of(context)
+                                              //       .showSnackBar(
+                                              //     const SnackBar(
+                                              //       content: Text(
+                                              //           'Tolong lengkapi data'),
+                                              //     ),
+                                              //   );
+                                              //   return null;
+                                              // }
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                BlocProvider.of<RegisterBloc>(
+                                                        context)
+                                                    .add(DoRegister(
+                                                        req: RegisterReqEntity(
+                                                  provinceId: provinsi.value,
+                                                  avatar64: avatarBase64,
+                                                  idCard64: idCardBase64,
+                                                  name: name.value,
+                                                  email: email.value,
+                                                  phone: phone.value,
+                                                  sex: sex.value,
+                                                  dob: dob.value,
+                                                  address: address.value,
+                                                  subdistrictId:
+                                                      kecamatan.value!,
+                                                  placeId: kota.value!,
+                                                )));
+                                              }
+                                            },
+                                            style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                              ),
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                      Color>(Colors.blue),
                                             ),
-                                          );
-                                          return null;
-                                        }
-                                        if (_formKey.currentState!.validate()) {
-                                          BlocProvider.of<RegisterBloc>(context)
-                                              .add(DoRegister(
-                                                  req: RegisterReqEntity(
-                                            avatar64: avatarBase64,
-                                            idCard64: idCardBase64,
-                                            name: name.value,
-                                            email: email.value,
-                                            phone: phone.value,
-                                            sex: sex.value,
-                                            dob: dob.value,
-                                            address: address.value,
-                                            subdistrictId: kecamatan.value!,
-                                            placeId: kota.value!,
-                                          )));
-                                        }
-                                      },
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                        ),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.blue),
-                                      ),
-                                      child: Text(
-                                        'Daftar',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: getFont(20.5)),
-                                      )),
-                                ),
+                                            child: Text(
+                                              'Daftar',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: getFont(20.5)),
+                                            )),
+                                      );
+                                    }),
                                 HeightGap(height: getHeight(25)),
                               ],
                             ),

@@ -6,8 +6,7 @@ import '../../models/region_model.dart';
 
 abstract class RegisterRemoteDatasource {
   Future<RegionModel> getRegion();
-  Future<BaseResponse<RegisterRespModel>> doRegister(
-      {required RegisterReqEntity req});
+  Future<RegisterRespModel> doRegister({required RegisterReqEntity req});
 }
 
 class RegisterRemoteDatasourceImpl extends RegisterRemoteDatasource {
@@ -37,13 +36,13 @@ class RegisterRemoteDatasourceImpl extends RegisterRemoteDatasource {
   }
 
   @override
-  Future<BaseResponse<RegisterRespModel>> doRegister(
-      {required RegisterReqEntity req}) async {
+  Future<RegisterRespModel> doRegister({required RegisterReqEntity req}) async {
     Map<String, dynamic> data = {
       'photo': req.avatar64,
       'photo_ktp': req.idCard64,
       'fullname': req.name,
       'email': req.email,
+      'address': req.address,
       'phone': req.phone,
       'gender': req.sex,
       'birth_date': req.dob,
@@ -54,10 +53,8 @@ class RegisterRemoteDatasourceImpl extends RegisterRemoteDatasource {
     final response = await provider.post('register', data: data);
 
     if (response.statusCode != null && response.statusCode == 200) {
-      final result = BaseResponse<RegisterRespModel>.fromJson(
-        response.data,
-        (resp) => RegisterRespModel.fromJson(response.data),
-      );
+      final result = RegisterRespModel.fromJson(response.data);
+
       return result;
     } else {
       throw ServerException();

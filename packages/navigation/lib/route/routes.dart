@@ -1,8 +1,9 @@
-// import 'package:banner/presentation/pages/banner_page.dart';
 import 'package:auth/features/login/presentation/screens/login_screen.dart';
 import 'package:auth/features/otp/presentation/screens/otp_screen.dart';
+import 'package:auth/features/pin/presentation/screens/create_pin_screen.dart';
 import 'package:auth/features/pin/presentation/screens/pin_screen.dart';
 import 'package:auth/features/register/presentation/screens/register_screen.dart';
+import 'package:core/common/navigator_key.dart';
 import 'package:core/core.dart';
 
 import 'package:flutter/material.dart';
@@ -14,11 +15,15 @@ import 'not_found_page.dart';
 
 class AppRouter {
   static const root = '/';
+  static const splash = 'splash';
   static const onboarding = 'onboarding';
   static const login = 'login';
   static const register = 'register';
-  static const pin = 'pin';
-  static const otp = 'otp';
+  static const registerPin = 'registerPin';
+  static const createPin = 'createPin';
+  static const registerOtp = 'registerOtp';
+  static const loginPin = 'loginPin';
+  static const loginOtp = 'loginOtp';
   static const home = 'home';
 
   static MaterialPage _splashScreenRouteBuilder(
@@ -56,10 +61,35 @@ class AppRouter {
       );
 
   static MaterialPage _pinScreenRouteBuilder(
+      BuildContext context, GoRouterState state) {
+    if (state.queryParams['first_pin'] != null) {
+      return MaterialPage(
+        key: state.pageKey,
+        child: PinScreen(
+          pinType: state.queryParams['pin_type']!,
+          email: state.queryParams['email']!,
+          firstPin: state.queryParams['first_pin']!,
+        ),
+      );
+    } else {
+      return MaterialPage(
+        key: state.pageKey,
+        child: PinScreen(
+          pinType: state.queryParams['pin_type']!,
+          email: state.queryParams['email']!,
+        ),
+      );
+    }
+  }
+
+  static MaterialPage _createPinScreenRouteBuilder(
           BuildContext context, GoRouterState state) =>
       MaterialPage(
         key: state.pageKey,
-        child: PinScreen(),
+        child: CreatePinScreen(
+          pinType: state.queryParams['pin_type']!,
+          email: state.queryParams['email']!,
+        ),
       );
 
   static MaterialPage _otpScreenRouteBuilder(
@@ -67,7 +97,8 @@ class AppRouter {
       MaterialPage(
         key: state.pageKey,
         child: OTPScreen(
-          email: state.extra!,
+          email: state.queryParams['email']!,
+          otpType: state.queryParams['otp_type']!,
         ),
       );
 
@@ -78,18 +109,63 @@ class AppRouter {
       );
 
   static final GoRouter _router = GoRouter(
+    navigatorKey: navigatorKey,
     initialLocation: root,
+    routerNeglect: true,
+    debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        path: root,
+        path: '/',
+        name: 'splash',
         pageBuilder: _splashScreenRouteBuilder,
+      ),
+      GoRoute(
+        path: '/$registerOtp',
+        name: registerOtp,
+        pageBuilder: _otpScreenRouteBuilder,
+      ),
+      GoRoute(
+        path: '/$loginOtp',
+        name: loginOtp,
+        pageBuilder: _otpScreenRouteBuilder,
+      ),
+      GoRoute(
+        path: '/$loginPin',
+        name: loginPin,
+        pageBuilder: _pinScreenRouteBuilder,
+      ),
+      GoRoute(
+        path: '/$registerPin',
+        name: registerPin,
+        pageBuilder: _pinScreenRouteBuilder,
+      ),
+      GoRoute(
+        path: '/$createPin',
+        name: createPin,
+        pageBuilder: _createPinScreenRouteBuilder,
+      ),
+      GoRoute(
+        path: '/$home',
+        name: home,
+        pageBuilder: _homeScreenRouteBuilder,
+      ),
+      GoRoute(
+        path: '/$onboarding',
+        name: onboarding,
+        pageBuilder: _onBoardingScreenRouteBuilder,
         routes: [
-          GoRoute(path: onboarding, pageBuilder: _onBoardingScreenRouteBuilder),
-          GoRoute(path: login, pageBuilder: _loginScreenRouteBuilder),
-          GoRoute(path: pin, pageBuilder: _pinScreenRouteBuilder),
-          GoRoute(path: otp, pageBuilder: _otpScreenRouteBuilder),
-          GoRoute(path: register, pageBuilder: _registerScreenRouteBuilder),
-          GoRoute(path: home, pageBuilder: _homeScreenRouteBuilder),
+          GoRoute(
+            path: login,
+            name: login,
+            pageBuilder: _loginScreenRouteBuilder,
+            routes: [
+              GoRoute(
+                path: register,
+                name: register,
+                pageBuilder: _registerScreenRouteBuilder,
+              ),
+            ],
+          ),
         ],
       ),
     ],

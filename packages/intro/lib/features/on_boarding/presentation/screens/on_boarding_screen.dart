@@ -69,7 +69,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       ),
                       _index.value == pagesLength - 1
                           ? InkWell(
-                              onTap: () => context.push('/${AppRouter.login}'),
+                              onTap: () => context.goNamed(AppRouter.login),
                               child: const Text(
                                 'SELESAI',
                                 style: TextStyle(
