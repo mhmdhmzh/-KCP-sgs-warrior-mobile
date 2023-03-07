@@ -71,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'HALO!',
+                                'Halo!',
                                 style: TextStyle(
                                   fontSize: getFont(60),
                                 ),

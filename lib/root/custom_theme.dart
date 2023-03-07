@@ -6,7 +6,7 @@ class CustomTheme with ChangeNotifier {
   static ThemeData get lightTheme => ThemeData(
         primaryColor: CustomColors.primaryColor,
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: GoogleFonts.montserrat().fontFamily,
+        fontFamily: GoogleFonts.mulish().fontFamily,
         // textTheme: TextTheme(
         //    headline1: ThemeData.light().textTheme.headline1?.copyWith(color: CustomColors.textPrimaryColor, fontWeight: FontWeight.w400, fontSize: 14.0),
         //    headline2: ThemeData.light().textTheme.headline1?.copyWith(color: Colors.red, fontWeight: FontWeight.w700, fontSize: 20.0, fontFamily: GoogleFonts.aclonica().fontFamily),

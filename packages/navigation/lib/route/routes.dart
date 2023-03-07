@@ -10,6 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:home/features/home/presentation/screens/home_screen.dart';
 import 'package:intro/features/on_boarding/presentation/screens/on_boarding_screen.dart';
 import 'package:intro/features/splash/presentation/screens/splash_screen.dart';
+import 'package:product/features/product/presentation/screens/product_screen.dart';
+import 'package:product/features/product_card/presentation/screens/product_card_screen.dart';
+import 'package:transaction/features/cart/presentation/screens/cart_screen.dart';
 
 import 'not_found_page.dart';
 
@@ -25,6 +28,9 @@ class AppRouter {
   static const loginPin = 'loginPin';
   static const loginOtp = 'loginOtp';
   static const home = 'home';
+  static const productSearch = 'product_search';
+  static const productCard = 'product_card';
+  static const cart = 'cart';
 
   static MaterialPage _splashScreenRouteBuilder(
           BuildContext context, GoRouterState state) =>
@@ -40,6 +46,7 @@ class AppRouter {
         child: OnBoardingScreen(),
       );
 
+  // AUTH
   static MaterialPage _loginScreenRouteBuilder(
           BuildContext context, GoRouterState state) =>
       MaterialPage(
@@ -52,12 +59,6 @@ class AppRouter {
       MaterialPage(
         key: state.pageKey,
         child: RegisterScreen(),
-      );
-  static MaterialPage _homeScreenRouteBuilder(
-          BuildContext context, GoRouterState state) =>
-      MaterialPage(
-        key: state.pageKey,
-        child: HomeScreen(),
       );
 
   static MaterialPage _pinScreenRouteBuilder(
@@ -102,6 +103,41 @@ class AppRouter {
         ),
       );
 
+  // HOME
+  static MaterialPage _homeScreenRouteBuilder(
+          BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        key: state.pageKey,
+        child: HomeScreen(),
+      );
+
+  static MaterialPage _productSearchScreenRouteBuilder(
+          BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        key: state.pageKey,
+        child: ProductScreen(),
+      );
+
+  static MaterialPage _productCardScreenRouteBuilder(
+          BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        key: state.pageKey,
+        child: ProductCardSceen(
+          image: state.queryParams['image']!,
+          stock: state.queryParams['stock']!,
+          productId: state.queryParams['product_id']!,
+        ),
+      );
+
+  // TRANSACTION
+  static MaterialPage _cartScreenRouteBuilder(
+          BuildContext context, GoRouterState state) =>
+      MaterialPage(
+        key: state.pageKey,
+        child: CartScreen(),
+      );
+
+  // ERROR
   static MaterialPage _errorPage(BuildContext context, GoRouterState state) =>
       MaterialPage(
         key: state.pageKey,
@@ -145,11 +181,6 @@ class AppRouter {
         pageBuilder: _createPinScreenRouteBuilder,
       ),
       GoRoute(
-        path: '/$home',
-        name: home,
-        pageBuilder: _homeScreenRouteBuilder,
-      ),
-      GoRoute(
         path: '/$onboarding',
         name: onboarding,
         pageBuilder: _onBoardingScreenRouteBuilder,
@@ -166,6 +197,25 @@ class AppRouter {
               ),
             ],
           ),
+        ],
+      ),
+      GoRoute(
+        path: '/$home',
+        name: home,
+        pageBuilder: _homeScreenRouteBuilder,
+        routes: [
+          GoRoute(
+              path: productSearch,
+              name: productSearch,
+              pageBuilder: _productSearchScreenRouteBuilder,
+              routes: [
+                GoRoute(
+                  path: productCard,
+                  name: productCard,
+                  pageBuilder: _productCardScreenRouteBuilder,
+                  routes: [],
+                ),
+              ]),
         ],
       ),
     ],

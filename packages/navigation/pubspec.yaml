@@ -21,6 +21,8 @@ dependencies:
     path: ../product
   home:
     path: ../home
+  transaction:
+    path: ../transaction
 
 dev_dependencies:
   flutter_test:

@@ -103,112 +103,34 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final onboardingPagesList = [
     PageModel(
       widget: Container(
-        color: Colors.transparent,
+        color: Colors.white,
         height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 45.0,
-                vertical: 90.0,
-              ),
-              child: CachedNetworkImage(
-                imageUrl:
-                    'https://rare-gallery.com/mocahbig/423182-Dragon-Ball-Dragon-Ball-Z-Son-Gohan-Gohan-manga.png',
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0),
-              child: Text(
-                'CHANGE AND RISE',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-              child: Text(
-                'Give others access to any file or folders you choose.',
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+        child: Center(
+          child: Image.asset(
+            'assets/background/intro_1.png',
+          ),
         ),
       ),
     ),
     PageModel(
       widget: Container(
-        color: Colors.transparent,
+        color: Colors.white,
         height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 45.0,
-                vertical: 90.0,
-              ),
-              child: CachedNetworkImage(
-                imageUrl:
-                    'https://rare-gallery.com/mocahbig/423182-Dragon-Ball-Dragon-Ball-Z-Son-Gohan-Gohan-manga.png',
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0),
-              child: Text(
-                'WE CAN DO IT',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-              child: Text(
-                'Give others money and never let anyone else beat you up, ganbate.',
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+        child: Center(
+          child: Image.asset(
+            'assets/background/intro_2.png',
+          ),
         ),
       ),
     ),
     PageModel(
       widget: Container(
-        color: Colors.transparent,
+        color: Colors.white,
         height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 45.0,
-                vertical: 90.0,
-              ),
-              child: CachedNetworkImage(
-                imageUrl:
-                    'https://rare-gallery.com/mocahbig/423182-Dragon-Ball-Dragon-Ball-Z-Son-Gohan-Gohan-manga.png',
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0),
-              child: Text(
-                'WATER THE TOILET',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-              child: Text(
-                'Sometimes it smells, sometimes it does not. So man up and wipe your pee pee.',
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+        child: Center(
+          child: Image.asset(
+            'assets/background/intro_3.png',
+          ),
         ),
       ),
     ),

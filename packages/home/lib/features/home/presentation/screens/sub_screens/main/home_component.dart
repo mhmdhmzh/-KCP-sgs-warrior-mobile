@@ -8,6 +8,7 @@ import 'package:core/common/utils/size_config.dart';
 import 'package:core/core.dart';
 import 'package:home/features/home/presentation/screens/sub_screens/main/component/banner_component.dart';
 import 'package:home/features/home/presentation/screens/sub_screens/main/component/category_component.dart';
+import 'package:navigation/route/routes.dart';
 
 class HomeComponent extends StatelessWidget {
   const HomeComponent({Key? key}) : super(key: key);
@@ -19,26 +20,29 @@ class HomeComponent extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.blue,
-        title: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
-          ),
-          height: getHeight(30),
-          width: getWidth(300),
-          child: Row(
-            children: [
-              WidthGap(width: getWidth(10)),
-              const Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-              WidthGap(width: getWidth(10)),
-              const Text(
-                'Search Product',
-                style: TextStyle(color: Colors.black, fontSize: 15.5),
-              )
-            ],
+        title: InkWell(
+          onTap: () => context.goNamed(AppRouter.productSearch),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+            ),
+            height: getHeight(30),
+            width: getWidth(300),
+            child: Row(
+              children: [
+                WidthGap(width: getWidth(10)),
+                const Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+                WidthGap(width: getWidth(10)),
+                const Text(
+                  'Search Product',
+                  style: TextStyle(color: Colors.black, fontSize: 15.5),
+                )
+              ],
+            ),
           ),
         ),
         bottom: PreferredSize(
@@ -54,7 +58,7 @@ class HomeComponent extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Hi, Fredrin Sambo',
+                      'Hi, Son Gohan SSJ2',
                       style: TextStyle(
                         fontSize: getFont(18.5),
                         color: Colors.white,
@@ -124,23 +128,73 @@ class HomeComponent extends StatelessWidget {
                   child: SizedBox(
                     height: size.height / 20,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          'Warpay',
-                          style: TextStyle(
-                            fontSize: getFont(14.5),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/icon/logo.png',
+                              height: getHeight(20),
+                            ),
+                            WidthGap(
+                              width: getWidth(10),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '0 WP',
+                                  style: TextStyle(
+                                    fontSize: getFont(12.5),
+                                  ),
+                                ),
+                                Text(
+                                  'Topup Warpay',
+                                  style: TextStyle(
+                                    fontSize: getFont(10.5),
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                         const VerticalDivider(
                           color: Colors.black,
                         ),
-                        Text(
-                          'Point',
-                          style: TextStyle(
-                            fontSize: getFont(14.5),
-                          ),
-                        )
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.blur_circular_outlined,
+                              color: Colors.yellow,
+                            ),
+                            WidthGap(
+                              width: getWidth(10),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '10 Poin',
+                                  style: TextStyle(
+                                    fontSize: getFont(12.5),
+                                  ),
+                                ),
+                                Text(
+                                  'Tukar Poin',
+                                  style: TextStyle(
+                                    fontSize: getFont(10.5),
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

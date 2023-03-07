@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:home/features/home/presentation/bloc/navbar_bloc.dart';
 import 'package:core/core.dart';
+import 'package:navigation/navigation.dart';
 
 import 'sub_screens/main/home_component.dart';
 
@@ -19,11 +20,7 @@ class HomeScreen extends StatelessWidget {
             if (state is NavbarHome) {
               return const HomeComponent();
             } else if (state is NavbarCart) {
-              return const SafeArea(
-                child: Center(
-                  child: Text('Cart'),
-                ),
-              );
+              return const CartScreen();
             } else if (state is NavbarOrder) {
               return const SafeArea(
                 child: Center(
