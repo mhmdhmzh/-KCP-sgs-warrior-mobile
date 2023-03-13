@@ -133,6 +133,10 @@ class _OTPScreenState extends State<OTPScreen> {
                 .setString(constants.PREF_KEY_TOKEN, state.resp.data.token);
             sl<SharedPreferences>().setString(
                 constants.PREF_KEY_EMAIL, state.resp.data.user.email);
+            sl<SharedPreferences>().setString(constants.PREF_KEY_WAREHOUSE_ID,
+                state.resp.data.user.warehouseId.toString());
+            sl<SharedPreferences>().setString(constants.PREF_KEY_WAREHOUSE_NAME,
+                state.resp.data.user.warehouseName);
             if (widget.otpType == 'register') {
               debugPrint('REGISTER');
               context.goNamed(AppRouter.createPin, queryParams: {

@@ -115,7 +115,10 @@ class AppRouter {
           BuildContext context, GoRouterState state) =>
       MaterialPage(
         key: state.pageKey,
-        child: ProductScreen(),
+        child: ProductScreen(
+          warehouseId: state.queryParams['warehouse_id']!,
+          warehouseName: state.queryParams['warehouse_name']!,
+        ),
       );
 
   static MaterialPage _productCardScreenRouteBuilder(
@@ -123,9 +126,8 @@ class AppRouter {
       MaterialPage(
         key: state.pageKey,
         child: ProductCardSceen(
-          image: state.queryParams['image']!,
-          stock: state.queryParams['stock']!,
-          productId: state.queryParams['product_id']!,
+          productName: state.queryParams['product_name']!,
+          warehouseId: state.queryParams['warehouse_id']!,
         ),
       );
 
@@ -205,18 +207,25 @@ class AppRouter {
         pageBuilder: _homeScreenRouteBuilder,
         routes: [
           GoRoute(
-              path: productSearch,
-              name: productSearch,
-              pageBuilder: _productSearchScreenRouteBuilder,
-              routes: [
-                GoRoute(
-                  path: productCard,
-                  name: productCard,
-                  pageBuilder: _productCardScreenRouteBuilder,
-                  routes: [],
-                ),
-              ]),
+            path: productSearch,
+            name: productSearch,
+            pageBuilder: _productSearchScreenRouteBuilder,
+            routes: [
+              // GoRoute(
+              //   path: productCard,
+              //   name: productCard,
+              //   pageBuilder: _productCardScreenRouteBuilder,
+              //   routes: [],
+              // ),
+            ],
+          ),
         ],
+      ),
+      GoRoute(
+        path: '/$productCard',
+        name: productCard,
+        pageBuilder: _productCardScreenRouteBuilder,
+        routes: [],
       ),
     ],
     errorPageBuilder: _errorPage,

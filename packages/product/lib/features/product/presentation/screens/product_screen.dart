@@ -5,13 +5,20 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:product/features/warehouse/presentation/screens/warehouse_screen.dart';
 import '../../../../common_utils.dart';
 import '../../../global_variable.dart' as globVar;
+import 'package:core/common/constants.dart' as constants;
 
 import '../bloc/product_bloc.dart';
 import 'component/card_widget.dart';
 import 'component/card_widget_shimmer.dart';
 
 class ProductScreen extends StatelessWidget {
-  ProductScreen({Key? key}) : super(key: key);
+  ProductScreen({
+    required this.warehouseId,
+    required this.warehouseName,
+    Key? key,
+  }) : super(key: key);
+  final String warehouseId;
+  final String warehouseName;
 
   ValueNotifier<TextEditingController> searchController =
       ValueNotifier(TextEditingController());
@@ -22,9 +29,22 @@ class ProductScreen extends StatelessWidget {
       create: (context) => sl<ProductBloc>(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Produk'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.warehouse,
+                color: Colors.white,
+              ),
+              WidthGap(width: getWidth(5)),
+              Text(warehouseName),
+            ],
+          ),
           actions: const [
-            WarehouseAppbarIcon(),
+            WarehouseAppbarIcon(
+              isProductScreen: true,
+              prodName: '',
+            ),
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -62,7 +82,8 @@ class ProductScreen extends StatelessWidget {
                       debugPrint(value);
                       BlocProvider.of<ProductBloc>(context).add(SearchProduct(
                           prodName: searchController.value.text,
-                          warehouseId: '1'));
+                          warehouseId: sl<SharedPreferences>()
+                              .getString(constants.PREF_KEY_WAREHOUSE_ID)!));
                     },
                   ),
                 ),

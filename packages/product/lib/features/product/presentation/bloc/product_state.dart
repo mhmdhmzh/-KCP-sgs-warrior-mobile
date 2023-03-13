@@ -38,3 +38,39 @@ class SearchProductError extends ProductState {
 }
 
 class SearchProductEmpty extends ProductState {}
+
+// top product
+
+class TopProductLoading extends ProductState {}
+
+class TopProductSuccess extends ProductState {
+  final TopProductEntity products;
+
+  TopProductSuccess({required this.products});
+}
+
+class TopProductError extends ProductState {
+  final String message;
+
+  TopProductError({required this.message});
+}
+
+class TopProductEmpty extends ProductState {}
+
+// top product
+
+class ProductCardLoading extends ProductState {}
+
+class ProductCardSuccess extends ProductState {
+  final ProductEntity product;
+
+  ProductCardSuccess({required this.product});
+}
+
+class ProductCardError extends ProductState {
+  final String message;
+
+  ProductCardError({required this.message});
+}
+
+class ProductCardEmpty extends ProductState {}

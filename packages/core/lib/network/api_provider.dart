@@ -20,7 +20,7 @@ class ApiProvider {
       ..options.responseType = ResponseType.json
       ..interceptors.addAll([
         interceptor,
-        _httpLogging(),
+        // _httpLogging(),
       ])
       ..options.headers = _headers();
   }

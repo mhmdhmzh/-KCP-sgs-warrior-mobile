@@ -2,11 +2,20 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:navigation/route/routes.dart';
+import 'package:product/features/product/presentation/bloc/product_bloc.dart';
 
 import '../bloc/warehouse_bloc.dart';
+import 'package:core/common/constants.dart' as constants;
 
 class WarehouseAppbarIcon extends StatelessWidget {
-  const WarehouseAppbarIcon({Key? key}) : super(key: key);
+  const WarehouseAppbarIcon({
+    required this.isProductScreen,
+    required this.prodName,
+    Key? key,
+  }) : super(key: key);
+  final bool isProductScreen;
+  final String prodName;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +27,14 @@ class WarehouseAppbarIcon extends StatelessWidget {
           backgroundColor: Colors.transparent,
           context: context,
           builder: (_) {
-            return const WarehouseComponent();
+            return WarehouseComponent(
+              isProductScreen: isProductScreen,
+              prodName: prodName,
+            );
           },
         ),
         child: const Icon(
-          Icons.store,
+          Icons.warehouse,
           color: Colors.white,
         ),
       ),
@@ -30,13 +42,33 @@ class WarehouseAppbarIcon extends StatelessWidget {
   }
 }
 
-class WarehouseComponent extends StatelessWidget {
-  const WarehouseComponent({Key? key}) : super(key: key);
+class WarehouseComponent extends StatefulWidget {
+  const WarehouseComponent({
+    required this.isProductScreen,
+    required this.prodName,
+    Key? key,
+  }) : super(key: key);
+  final bool isProductScreen;
+  final String prodName;
 
   @override
+  State<WarehouseComponent> createState() => _WarehouseComponentState();
+}
+
+class _WarehouseComponentState extends State<WarehouseComponent> {
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<WarehouseBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<ProductBloc>(),
+          child: Container(),
+        ),
+        BlocProvider(
+          create: (context) => sl<WarehouseBloc>(),
+          child: Container(),
+        ),
+      ],
       child: BlocBuilder<WarehouseBloc, WarehouseState>(
         builder: (context, state) {
           if (state is WarehouseInitial) {
@@ -97,7 +129,30 @@ class WarehouseComponent extends StatelessWidget {
                         itemBuilder: (context, index) {
                           var warehouse = state.warehouseEntity.data[index];
                           return ListTile(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pop(context);
+                              if (widget.isProductScreen) {
+                                debugPrint('tap');
+                                sl<SharedPreferences>().setString(
+                                    constants.PREF_KEY_WAREHOUSE_ID,
+                                    warehouse.id.toString());
+                                sl<SharedPreferences>().setString(
+                                    constants.PREF_KEY_WAREHOUSE_NAME,
+                                    warehouse.name);
+                                context.pushNamed(AppRouter.productSearch,
+                                    queryParams: {
+                                      'warehouse_id': '${warehouse.id}',
+                                      'warehouse_name': warehouse.name,
+                                    });
+                              } else {
+                                debugPrint('top');
+                                context.pushNamed(AppRouter.productCard,
+                                    queryParams: {
+                                      'product_name': widget.prodName,
+                                      'warehouse_id': '${warehouse.id}'
+                                    });
+                              }
+                            },
                             title: Text(
                               warehouse.name,
                               style: TextStyle(

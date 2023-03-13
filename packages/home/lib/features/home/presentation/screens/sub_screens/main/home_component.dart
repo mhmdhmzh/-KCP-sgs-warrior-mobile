@@ -9,6 +9,8 @@ import 'package:core/core.dart';
 import 'package:home/features/home/presentation/screens/sub_screens/main/component/banner_component.dart';
 import 'package:home/features/home/presentation/screens/sub_screens/main/component/category_component.dart';
 import 'package:navigation/route/routes.dart';
+import 'package:navigation/navigation.dart';
+import 'package:core/common/constants.dart' as constants;
 
 class HomeComponent extends StatelessWidget {
   const HomeComponent({Key? key}) : super(key: key);
@@ -21,7 +23,12 @@ class HomeComponent extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.blue,
         title: InkWell(
-          onTap: () => context.goNamed(AppRouter.productSearch),
+          onTap: () => context.goNamed(AppRouter.productSearch, queryParams: {
+            'warehouse_id': sl<SharedPreferences>()
+                .getString(constants.PREF_KEY_WAREHOUSE_ID),
+            'warehouse_name': sl<SharedPreferences>()
+                .getString(constants.PREF_KEY_WAREHOUSE_NAME),
+          }),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
@@ -85,6 +92,7 @@ class HomeComponent extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               // Container(
               //   width: double.infinity,
@@ -204,10 +212,8 @@ class HomeComponent extends StatelessWidget {
                 height: getHeight(30),
               ),
               BannerComponent(),
-              CategoryComponent(),
-              CategoryComponent(),
-              CategoryComponent(),
-              CategoryComponent(),
+              const CategoryComponent(),
+              const TopProductComponent(),
             ],
           ),
         ),

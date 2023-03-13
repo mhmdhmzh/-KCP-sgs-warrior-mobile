@@ -3,6 +3,7 @@ import 'package:product/features/product/data/datasources/remote/product_remote_
 import 'package:product/features/product/domain/entities/product_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:core/network/failures.dart';
+import 'package:product/features/product/domain/entities/top_product_entity.dart';
 import 'package:product/features/product/domain/repositories/product_repository.dart';
 import 'package:product/features/product/domain/usecases/product_usecase.dart';
 
@@ -23,6 +24,29 @@ class ProductRepositoryImpl extends ProductRepository {
 
   @override
   Future<Either<Failure, ProductEntity>> searchProducts(
+      {required SearchProductParams params}) async {
+    try {
+      final response = await datasource.searchProducts(params: params);
+      return Right(response);
+    } on DioError catch (e) {
+      final responseError = CustomException.fromDioError(e);
+      return Left(RequestFailure(message: responseError.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, TopProductEntity>> getTopProducts() async {
+    try {
+      final response = await datasource.getTopProducts();
+      return Right(response);
+    } on DioError catch (e) {
+      final responseError = CustomException.fromDioError(e);
+      return Left(RequestFailure(message: responseError.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProductEntity>> getProductCard(
       {required SearchProductParams params}) async {
     try {
       final response = await datasource.searchProducts(params: params);

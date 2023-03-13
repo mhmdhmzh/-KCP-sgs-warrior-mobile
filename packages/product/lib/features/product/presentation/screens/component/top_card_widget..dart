@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/flavor_config.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation/route/routes.dart';
 import 'package:product/features/product/domain/entities/product_entity.dart';
@@ -8,13 +9,12 @@ import 'package:product/features/product/presentation/screens/component/top_prod
 
 import '../../../../../common_utils.dart';
 
-class CardWidget extends StatelessWidget {
-  const CardWidget({
+class TopCardWidget extends StatelessWidget {
+  const TopCardWidget({
     required this.productData,
     super.key,
   });
-
-  final ProductDataEntity productData;
+  final TopProductDataEntity productData;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,8 @@ class CardWidget extends StatelessWidget {
           AppRouter.productCard,
           queryParams: {
             'product_name': productData.prodName,
-            'warehouse_id': productData.warehouseId.toString(),
+            'warehouse_id': sl<SharedPreferences>()
+                .getString(constants.PREF_KEY_WAREHOUSE_ID),
           },
         );
       },
@@ -33,49 +34,15 @@ class CardWidget extends StatelessWidget {
         children: [
           AspectRatio(
             aspectRatio: 1 / 1,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0)),
-                  child: CachedNetworkImage(
-                    imageUrl: productData.image.first,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return MarkupComponenet(
-                              productData: productData,
-                            );
-                          },
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade900,
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(5)),
-                        ),
-                        width: 25,
-                        height: 25,
-                        child: const Icon(
-                          Icons.percent,
-                          color: Colors.white,
-                          size: 15.5,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(4.0),
+                  topRight: Radius.circular(4.0)),
+              child: CachedNetworkImage(
+                imageUrl:
+                    '${FlavorConfig.instance.baseUrl}${productData.image!}',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           HeightGap(height: getHeight(4)),
@@ -91,45 +58,12 @@ class CardWidget extends StatelessWidget {
           ),
           HeightGap(height: getHeight(4)),
           Text(
-            productData.prodBasePrice,
+            CommonUtils().currency(int.parse(productData.prodBasePrice)),
             style: TextStyle(
               color: Colors.red,
               fontWeight: FontWeight.w600,
               fontSize: getFont(14.5),
             ),
-          ),
-          HeightGap(height: getHeight(4)),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  ClipRRect(
-                    child: Image.asset(
-                      'assets/icon/logo.png',
-                      height: getHeight(10),
-                    ),
-                  ),
-                  WidthGap(width: getWidth(2.5)),
-                  Text(
-                    '${productData.prodWarpay}',
-                    style: TextStyle(
-                      color: Colors.blue.shade800,
-                      fontWeight: FontWeight.w600,
-                      fontSize: getFont(12.5),
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                '${productData.stock} pcs',
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: getFont(12.5),
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
           ),
         ],
       ),
@@ -137,10 +71,10 @@ class CardWidget extends StatelessWidget {
   }
 }
 
-class MarkupComponenet extends StatelessWidget {
-  MarkupComponenet({required this.productData, Key? key}) : super(key: key);
+class TopMarkupComponenet extends StatelessWidget {
+  TopMarkupComponenet({required this.productData, Key? key}) : super(key: key);
 
-  final ProductDataEntity productData;
+  final TopProductDataEntity productData;
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +91,7 @@ class MarkupComponenet extends StatelessWidget {
             Center(
               child: ClipRRect(
                 child: CachedNetworkImage(
-                  imageUrl: productData.image.first,
+                  imageUrl: productData.image!,
                   height: getHeight(200),
                 ),
               ),

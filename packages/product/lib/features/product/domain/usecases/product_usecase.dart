@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:product/features/product/domain/entities/product_entity.dart';
+import 'package:product/features/product/domain/entities/top_product_entity.dart';
 import 'package:product/features/product/domain/repositories/product_repository.dart';
 
 class ProductUsecase extends UseCase<ProductEntity, ProductParams> {
@@ -11,6 +12,29 @@ class ProductUsecase extends UseCase<ProductEntity, ProductParams> {
   @override
   Future<Either<Failure, ProductEntity>> call(ProductParams params) async {
     return await repository.getProducts();
+  }
+}
+
+class ProductCardUsecase extends UseCase<ProductEntity, SearchProductParams> {
+  final ProductRepository repository;
+
+  ProductCardUsecase({required this.repository});
+
+  @override
+  Future<Either<Failure, ProductEntity>> call(
+      SearchProductParams params) async {
+    return await repository.getProductCard(params: params);
+  }
+}
+
+class TopProductUsecase extends UseCase<TopProductEntity, ProductParams> {
+  final ProductRepository repository;
+
+  TopProductUsecase({required this.repository});
+
+  @override
+  Future<Either<Failure, TopProductEntity>> call(ProductParams params) async {
+    return await repository.getTopProducts();
   }
 }
 

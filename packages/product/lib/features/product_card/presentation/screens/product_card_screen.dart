@@ -6,31 +6,29 @@ import 'package:product/common_utils.dart';
 import 'package:product/features/product/domain/entities/product_entity.dart';
 import 'package:product/features/warehouse/presentation/screens/warehouse_screen.dart';
 
-import '../bloc/product_card_bloc.dart';
+import '../../../product/presentation/bloc/product_bloc.dart';
 
 class ProductCardSceen extends StatelessWidget {
   ProductCardSceen({
-    required this.image,
-    required this.stock,
-    required this.productId,
+    required this.productName,
+    this.warehouseId,
     Key? key,
   }) : super(key: key);
 
-  final String image;
-  final String productId;
-  final String stock;
+  final String productName;
+  final String? warehouseId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<ProductCardBloc>(),
-      child: BlocBuilder<ProductCardBloc, ProductCardState>(
+      create: (context) => sl<ProductBloc>(),
+      child: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
-          if (state is ProductCardInitial) {
-            BlocProvider.of<ProductCardBloc>(context)
-                .add(GetProductCard(productId: productId));
+          if (state is ProductInitial) {
+            BlocProvider.of<ProductBloc>(context).add(GetProductCard(
+                prodName: productName, warehouseId: warehouseId ?? '1'));
             return Container();
-          } else if (state is Loading) {
+          } else if (state is ProductCardLoading) {
             return Scaffold(
               appBar: AppBar(title: const Text('Produk')),
               body: const SafeArea(
@@ -50,13 +48,16 @@ class ProductCardSceen extends StatelessWidget {
                 child: const CircularProgressIndicator(),
               ),
             );
-          } else if (state is Success) {
-            var productData = state.data.data.first;
+          } else if (state is ProductCardSuccess) {
+            var productData = state.product.data.first;
             return Scaffold(
               appBar: AppBar(
                 title: const Text('Produk'),
-                actions: const [
-                  WarehouseAppbarIcon(),
+                actions: [
+                  WarehouseAppbarIcon(
+                    isProductScreen: false,
+                    prodName: productData.prodName,
+                  ),
                 ],
               ),
               body: SafeArea(
@@ -66,7 +67,7 @@ class ProductCardSceen extends StatelessWidget {
                     children: [
                       ClipRRect(
                         child: CachedNetworkImage(
-                          imageUrl: image,
+                          imageUrl: productData.image.first,
                           height: getHeight(340),
                           width: double.infinity,
                         ),
@@ -86,8 +87,7 @@ class ProductCardSceen extends StatelessWidget {
                             ),
                             HeightGap(height: getHeight(10)),
                             Text(
-                              CommonUtils().currency(
-                                  int.parse(productData.prodBasePrice)),
+                              productData.prodBasePrice,
                               style: TextStyle(
                                 color: Colors.red,
                                 fontSize: getFont(14),
@@ -101,7 +101,7 @@ class ProductCardSceen extends StatelessWidget {
                                   height: getHeight(15),
                                 ),
                                 Text(
-                                  productData.prodModalPrice,
+                                  productData.prodWarpay.toString(),
                                   style: TextStyle(
                                     color: Colors.blue.shade900,
                                     fontWeight: FontWeight.bold,
@@ -122,7 +122,7 @@ class ProductCardSceen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'Zimbabwe',
+                                  productData.warehouseName,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -176,7 +176,7 @@ class ProductCardSceen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'stock',
+                                  '${productData.stock} stock',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: getFont(14),
@@ -196,7 +196,7 @@ class ProductCardSceen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'categoryName',
+                                  productData.categoryName,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: getFont(14),
@@ -216,7 +216,7 @@ class ProductCardSceen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'brandName',
+                                  productData.brandName,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: getFont(14),
@@ -236,7 +236,7 @@ class ProductCardSceen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'principleName',
+                                  productData.principleName,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: getFont(14),
@@ -298,7 +298,7 @@ class ProductCardSceen extends StatelessWidget {
                 ),
               ),
             );
-          } else if (state is Error) {
+          } else if (state is ProductCardError) {
             return Scaffold(
               appBar: AppBar(title: const Text('Produk')),
               body: SafeArea(
